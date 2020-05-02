@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <script src="https://use.fontawesome.com/bf8a5574e6.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <title>Hot Restaurant Table View</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="jumbotron bg-light">
+          <span class="glyphicon glyphicon-fire"></span>
+            <h1 class="text-center"><i class="fa fa-fire"></i>Hot Restaurant</h1>
+            <hr>
+            <h2 class="text-center">Current Reservations and Waiting List</h2>
+            <br>
+            <div class="text-center">
+              <a href="/form" class="btn btn-info btn-lg">
+                <i class="fa fa-list-alt"></i>Make Reservation</a>
+              <a href="/"><button type="button" class="btn btn-lg btn-primary"><i class="fa fa-home"></i> Home</button></a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="tables" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Current Reservations</h3>
+                <div id="tables"></div>
+                    <!-- <div class="well" id="tableWell-01">
+                        <h2><span id="customerName" class="label label-primary">1</span></h2>
+                    </div>
+                    <div class="well" id="tableWell-02">
+                        <h2><span id="phoneNumber" class="label label-primary">2</span></h2>
+                    </div>
+                    <div class="well" id="tableWell-03">
+                        <h2><span id="customerEmail" class="label label-primary">3</span></h2>
+                    </div>
+                    <div class="well" id="tableWell-04">
+                        <h2><span id="customerID" class="label label-primary">4</span></h2>
+                    </div> -->
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Waiting List</h3>
+                    <div id="waiting-list"></div>
+                    <!-- <div class="well" id="tableWell-01">
+                        <h2><span id="customerName" class="label label-primary">1</span></h2>
+                    </div>
+                    <div class="well" id="tableWell-02">
+                        <h2><span id="phoneNumber" class="label label-primary">2</span></h2>
+                    </div>
+                    <div class="well" id="tableWell-03">
+                        <h2><span id="customerEmail" class="label label-primary">3</span></h2>
+                    </div>
+                    <div class="well" id="tableWell-04">
+                        <h2><span id="customerID" class="label label-primary">4</span></h2>
+                    </div> -->
+                </div>
+            </div>
+
+<br>
+<br>
+    <p><a href="/api/tables">API Table Link</a>
+       | 
+      <a href="/api/waitingList">API Wait List</a>
+  </p>
+
+  <script type="text/javascript">
+    $( document ).ready(() => {
+        $.get("/api/tables/", function (data) {
+            console.log(data);
+            const tablesEl = $('#tables');
+            
+            if (data) {
+                for (reservation of data) {
+                    console.log(`${data.indexOf(reservation)}`)
+                    let content = `<p>Table ${data.indexOf(reservation) + 1}</p>`;
+
+                    content = `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.customerName}</span></h2>
+                    </div>`
+
+                    content += `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.phoneNumber}</span></h2>
+                    </div>`
+
+                    content += `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.customerEmail}</span></h2>
+                    </div>`
+
+                    content += `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.customerID}</span></h2>
+                    </div>`
+
+                    tablesEl.append(content)
+                }
+            }
+        });
+        
+        $.get("/api/waitingList/", function (data) {
+            console.log(data);
+            const waitingListEl = $('#waiting-list');
+            
+            if (data) {
+                for (reservation of data) {
+                    let content = `<p>Wait ${data.indexOf(reservation) + 1}</p>`;
+                    content = `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.customerName}</span></h2>
+                    </div>`
+
+                    content += `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.phoneNumber}</span></h2>
+                    </div>`
+
+                    content += `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.customerEmail}</span></h2>
+                    </div>`
+
+                    content += `<div class="well" id="tableWell-01">
+                        <h2><span class="label label-primary">${reservation.customerID}</span></h2>
+                    </div>`
+
+                    waitingListEl.append(content)
+                }
+            }
+        });
+    })
+        
+
+  </script>
+</body>
+</html>

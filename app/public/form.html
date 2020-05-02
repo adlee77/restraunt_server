@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <script src="https://use.fontawesome.com/bf8a5574e6.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <title>Reservations</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="jumbotron bg-light">
+          
+            <h1 class="text-center"><i class="fa fa-fire"></i>Hot Restaurant</h1>
+            <hr>
+            <h2 class="text-center">Make Your Reservation</h2>
+            <a href="/tableView">
+            <button class="btn btn-primary" id="view-tables" type="submit"><i class="fa fa-list-alt"></i>
+
+              View Tables</button></a>
+              <a href="/">
+            <button class="btn btn-primary" id="home-button" type="submit"><i class="fa fa-home"></i>Home
+            </button></a>
+          </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+              Table Reservation
+            </div>
+            <div class="card-body">
+                <form role="form" method="POST">
+                    <div class="form-group row">
+                      <label for="name-input">Name</label>
+                      <input class="form-control" id="name-input" type="text">
+                    </div>
+                    <div class="form-group row">
+                      <label for="phone-num-input">Phone Number</label>
+                      <input class="form-control" id="phone-num-input" type="tel">
+                    </div>
+                    <div class="form-group row">
+                      <label for="email-input">Email</label>
+                      <input class="form-control" id="email-input" type="email">
+                    </div>
+                    <div class="form-group row">
+                        <label for="unique-id-input">Unique ID</label>
+                        <input class="form-control" id="unique-id-input" type="text">
+                    </div>
+                    <button type="submit"  id="submit-btn" class="btn btn-primary submit">Submit</button>
+                  </form>
+            </div>
+          </div>
+    </div>
+    <p><a href="/api/tables">API Table Link</a>
+       | 
+      <a href="/api/waitingList">API Wait List</a>
+     
+  </p>
+  <script>
+    $("#submit-btn").on("click", function (event) {
+        event.preventDefault();
+        var person = {
+            customerName: $("#name-input").val().trim(),
+            phoneNumber: $("#phone-num-input").val().trim(),
+            customerEmail: $("#email-input").val().trim(),
+            customerID: $("#unique-id-input").val().trim()
+        };
+        $.post("/api/reservation", person)
+            .then(function (data) {
+                alert("Adding reservation...");
+            });
+    });
+</script>
+  </body>
+  </html>
+ 
